@@ -73,12 +73,11 @@ const addCardEventListeners = () => {
             let card;
             if (e.target.className === 'card') {
                 card = e.target;
-            } else if (e.target.className === 'card-img-container' ||
-                       e.target.className === 'card-info-container') {
+            } else if (e.target.className === 'card-img-container' 
+            || e.target.className === 'card-info-container') {
                 card = e.target.parentNode;
-            } else if (e.target.className === 'card-img') {
-                card = e.target.parentNode.parentNode;
-            } else if (e.target.parentNode.className === "card-info-container") {
+            } else if (e.target.parentNode.className === "card-info-container" 
+            || e.target.className === 'card-img') {
                 card = e.target.parentNode.parentNode;
             } else {
                 return;
@@ -176,7 +175,6 @@ const removeModal = () => {
 
 /**
  * Scroll to next or previous employee from modal
- * @param {Number} currentIndex - index of current employee in the employeesArr array
  * @param {Bool} next - true to next, false to navigate to previous
  */
 function navigateEmployees(next) {
