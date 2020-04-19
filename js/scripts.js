@@ -8,6 +8,7 @@ by Michael Cook
 
 // Globals 
 let employeesArr;
+const gallery = document.getElementById('gallery');
 
 
 /**
@@ -60,6 +61,19 @@ const assignEmployeesArr = ({ results }) => {
 
 
 /**
+ * Add a click event listener to each card that calls createModal onclick
+ */
+const addCardEventListeners = () => {
+    const cards = Array.from(document.querySelectorAll('.card'));
+    cards.forEach(card => {
+        card.addEventListener('click', e => {
+            createModal(e);
+        });
+    });
+};
+
+
+/**
  * For each employee object, create and append a card div to the page
  * Function destructures the results array out of the data object
  * Calls assignEmployeesArr 
@@ -72,6 +86,7 @@ const displayEmployeeCards = ({ results }) => {
         gallery.appendChild(employeeCard);
     });
     assignEmployeesArr({ results });
+    addCardEventListeners();
 }
 
 
@@ -102,7 +117,7 @@ fetch('https://randomuser.me/api/?results=12')
  * Function destructures the target object from the event object
  * @param {Number} e - event object from click
  */
-const createModal = (e) => {
+function createModal(e) {
     const cards = Array.from(document.querySelectorAll('.card'));
     const index = cards.indexOf(e.target);
     const employee = employeesArr[index];
@@ -139,11 +154,3 @@ const removeModal = () => {
     const modal = document.querySelector('.modal-container');
     modal.remove();
 }
-
-
-// Open modal
-document.getElementById('gallery').addEventListener('click', e => {
-    if (e.target.className === 'card') {
-        createModal(e);
-    }
-});
