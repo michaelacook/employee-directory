@@ -62,12 +62,28 @@ const assignEmployeesArr = ({ results }) => {
 
 /**
  * Add a click event listener to each card that calls createModal onclick
+ * This function is written to allow the user to click anywhere in the card 
+ * Depending on where the user clicks, the function uses DOM traversal to get the outermost card div and pass it to createModal
+ * I don't know if this function is written in the most efficient way, but I couldn't figure out another way to do it
  */
 const addCardEventListeners = () => {
     const cards = Array.from(document.querySelectorAll('.card'));
     cards.forEach(card => {
         card.addEventListener('click', e => {
-            createModal(e);
+            let card;
+            if (e.target.className === 'card') {
+                card = e.target;
+            } else if (e.target.className === 'card-img-container' ||
+                       e.target.className === 'card-info-container') {
+                card = e.target.parentNode;
+            } else if (e.target.className === 'card-img') {
+                card = e.target.parentNode.parentNode;
+            } else if (e.target.parentNode.className === "card-info-container") {
+                card = e.target.parentNode.parentNode;
+            } else {
+                return;
+            }
+            createModal(card);
         });
     });
 };
@@ -115,13 +131,15 @@ fetch('https://randomuser.me/api/?results=12')
 /**
  * Generate a modal element for an employee
  * Function destructures the target object from the event object
- * @param {Number} e - event object from click
+ * @param {Number} el - event object from click
  */
-function createModal(e) {
+function createModal(el) {
+    removeModal();
     const cards = Array.from(document.querySelectorAll('.card'));
-    const index = cards.indexOf(e.target);
+    const index = cards.indexOf(el);
     const employee = employeesArr[index];
     const modal = document.createElement('div');
+    modal.setAttribute('data-employee-index', index);
     modal.className = 'modal-container';
     const modalInnerHTML = `
         <div class="modal">
@@ -138,8 +156,8 @@ function createModal(e) {
             </div>
         </div>
         <div class="modal-btn-container">
-            <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-            <button type="button" id="modal-next" class="modal-next btn">Next</button>
+            <button onclick="navigateEmployees(false);" type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+            <button onclick="navigateEmployees(true);" type="button" id="modal-next" class="modal-next btn">Next</button>
         </div>`;
     modal.innerHTML = modalInnerHTML;
     document.querySelector('body').appendChild(modal);
@@ -152,5 +170,22 @@ function createModal(e) {
  */
 const removeModal = () => {
     const modal = document.querySelector('.modal-container');
-    modal.remove();
+    if (modal) modal.remove();
+}
+
+
+/**
+ * Scroll to next or previous employee from modal
+ * @param {Number} currentIndex - index of current employee in the employeesArr array
+ * @param {Bool} next - true to next, false to navigate to previous
+ */
+function navigateEmployees(next) {
+    let index = document.querySelector('.modal-container').getAttribute('data-employee-index');
+    if (next && index < 11) {
+        index++;
+    } else if (!next && index > 0) {
+        index--;
+    }
+    const employee = Array.from(gallery.children)[index];
+    createModal(employee);
 }
