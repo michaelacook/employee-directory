@@ -178,7 +178,8 @@ const removeModal = () => {
  * @param {Bool} next - true to next, false to navigate to previous
  */
 function navigateEmployees(next) {
-    let index = document.querySelector('.modal-container').getAttribute('data-employee-index');
+    let index = document.querySelector('.modal-container')
+        .getAttribute('data-employee-index');
     if (next && index < 11) {
         index++;
     } else if (!next && index > 0) {
