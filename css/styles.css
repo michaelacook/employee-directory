@@ -44,7 +44,7 @@ header h1 {
 }
 
 .search-input:active, .search-input:hover, .search-input:focus {
-    border: 1px solid rgba(50, 50, 50, 0.9);
+    border: 1px solid mediumseagreen;
 }
 
 .search-submit {
@@ -59,7 +59,7 @@ header h1 {
 
 .search-submit:active, .search-submit:hover, .search-submit:focus {
     background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(50, 50, 50, 0.9);
+    border: 1px solid mediumseagreen;
 }
 
 
@@ -89,7 +89,7 @@ header h1 {
     padding: 10px;
     background: rgba(245, 245, 245, 0.9);
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 1px solid mediumseagreen;
     transition: .4s ease-out;
     overflow: hidden;
 }
@@ -152,7 +152,7 @@ header h1 {
     right: 15px;
     cursor: pointer;
     color: rgba(255, 255, 255, 0.9);
-    background: rgba(0, 0, 0, 0.8);
+    background: red;
     outline: none;
     border-radius: 0.25em;
     border: 1px solid rgba(50, 50, 50, 0.3);
@@ -201,7 +201,7 @@ header h1 {
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.9);
     padding: 0.75em 1.5em;
-    background: rgba(0, 0, 0, 0.8);
+    background: seagreen;
     border-radius: 0.35em;
     transition: .4s ease-out;
     outline: none;
@@ -249,7 +249,7 @@ header h1 {
 
     .card:hover {
         background: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(50, 50, 50, 0.9);
+        border: 1px solid darkseagreen;
     }
 
     .card:hover .card-text {
